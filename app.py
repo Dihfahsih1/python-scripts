@@ -8,6 +8,7 @@ from email import encoders
 
 import schedule
 import time
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 # training@rcsconsult.net,Racheal,Agitta,+971-585-554-431
 # isaac@rcsconsult.net,Isaac,Malagala,+971-525-557-934
@@ -43,8 +44,9 @@ def mass_mailing_script():
         except:
             print(error.message)
 
-schedule.every().monday.at("08:43").do(mass_mailing_script)
+sched = BlockingScheduler()
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=4)
+def scheduled_job():
+    print('This job is run every weekday at 5pm.')
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+sched.start()
