@@ -45,8 +45,10 @@ def mass_mailing_script():
             print(error.message)
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=11)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=11, minute=10)
 def scheduled_job():
-    print('This job is run every weekday at 5pm.')
+    print('This job is run every weekday at 4pm.')
 
 sched.start()
+
+#procfile
