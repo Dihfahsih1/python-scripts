@@ -10,10 +10,7 @@ import schedule
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-# training@rcsconsult.net,Racheal,Agitta,+971-585-554-431
-# isaac@rcsconsult.net,Isaac,Malagala,+971-525-557-934
-# office@rcsconsult.net,Ivan,Igaga,+971-525-557-934
-# operations@begos.biz, Ibra, Kaima.+25678749058
+
 
 sched = BlockingScheduler()
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=16, minute=30)
