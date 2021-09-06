@@ -16,11 +16,11 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 # operations@begos.biz, Ibra, Kaima.+25678749058
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=12, minute=35)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=16, minute=30)
 def mass_mailing_script():
     email_user = "ict@rcsconsult.net"
     password = "pythonista"
-    subject =" Testing" 
+    
     file = "text.txt"
     with open('receipients.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -29,13 +29,15 @@ def mass_mailing_script():
             for line in reader:
                 if(len(line) < 1):
                     continue
-                text = "Hello " +line[1]+"," + " we are contacting you"
                 email_send = line[0]
+                message = "Hello " +line[1]+"," 
+                subject ="RCS Company data or files backup" 
                 html_body =open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
                 msg['Subject'] = subject
+                msg['Message'] = message
                 
                 text = msg.as_string()
                 server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
