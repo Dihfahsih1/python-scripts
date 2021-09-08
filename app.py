@@ -13,7 +13,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=16, minute=30)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=11, minute=35)
 def mass_mailing_script():
     email_user = "ict@rcsconsult.net"
     password = "pythonista"
@@ -28,7 +28,7 @@ def mass_mailing_script():
                     continue
                 email_send = line[0]
                 message = "Hello " +line[1]+"," 
-                subject ="RCS Company data or files backup" 
+                subject ="Creating a folder in Google Drive" 
                 html_body =open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
