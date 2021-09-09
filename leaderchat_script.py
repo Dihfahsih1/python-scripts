@@ -31,4 +31,3 @@ def mass_mailing_script():
         except:
             print(error.message)
 
-mass_mailing_script()

@@ -5,21 +5,21 @@ from email.mime.text import MIMEText
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=17, minute=50)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=17, minute=20)
+
 def mass_mailing_script():
-    email_user = "ict@rcsconsult.net"
-    password = "pythonista"
-    
-    with open('receipients.csv', 'r') as csvfile:
+    email_user = "office@rcsconsult.net"
+    password = "office**1234"
+    with open('cleaned_emails.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
-        next(reader, None)
+        
         try:
             for line in reader:
                 if(len(line) < 1):
                     continue
                 email_send = line[0]
-                subject ="Rcs Data Back up" 
-                html_body =open("text.html")
+                subject ="Training Webinar" 
+                html_body =open("how_to_build_high_performance_teams.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
@@ -33,6 +33,7 @@ def mass_mailing_script():
                 server.quit()
         except:
             print(error.message)
+
 
 sched.start()
 
