@@ -7,8 +7,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 def mass_mailing_script():
     email_user = "office@rcsconsult.net"
     password = "office**1234"
-    
-    print(email_user)
     with open('cleaned_emails.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         

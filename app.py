@@ -10,7 +10,6 @@ def mass_mailing_script():
     email_user = "ict@rcsconsult.net"
     password = "pythonista"
     
-    file = "text.txt"
     with open('receipients.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         next(reader, None)
@@ -19,14 +18,12 @@ def mass_mailing_script():
                 if(len(line) < 1):
                     continue
                 email_send = line[0]
-                message = "Hello "
                 subject ="Rcs Data Back up" 
                 html_body =open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
                 msg['Subject'] = subject
-                msg['Message'] = message
                 
                 text = msg.as_string()
                 server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
