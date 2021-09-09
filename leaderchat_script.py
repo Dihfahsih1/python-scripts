@@ -2,16 +2,25 @@ from os import error
 import smtplib
 import  csv 
 from email.mime.text import MIMEText
+from email.mime.multipart import  MIMEMultipart
+from email.mime.base import  MIMEBase
+from email import encoders
+import pandas as pd
+
+import schedule
+import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+
+
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=11, minute=50)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=16, minute=30)
 def mass_mailing_script():
-    email_user = "ict@rcsconsult.net"
-    password = "pythonista"
+    email_user = "office@rcsconsult.net"
+    password = "office**1234"
     
     file = "text.txt"
-    with open('receipients.csv', 'r') as csvfile:
+    with open('list_of_emails.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         next(reader, None)
         try:
@@ -19,9 +28,9 @@ def mass_mailing_script():
                 if(len(line) < 1):
                     continue
                 email_send = line[0]
-                message = "Hello "
-                subject ="Testing the webinnar mass mailing" 
-                html_body =open("how_to_build_high_performance_teams.html")
+                message = "Hello " +line[1]+"," 
+                subject ="Training Webinnar" 
+                html_body =open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
@@ -39,5 +48,3 @@ def mass_mailing_script():
             print(error.message)
 
 sched.start()
-
- 
