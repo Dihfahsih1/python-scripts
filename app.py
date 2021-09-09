@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=11, minute=50)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=17, minute=50)
 def mass_mailing_script():
     email_user = "ict@rcsconsult.net"
     password = "pythonista"
@@ -20,8 +20,8 @@ def mass_mailing_script():
                     continue
                 email_send = line[0]
                 message = "Hello "
-                subject ="Testing the webinnar mass mailing" 
-                html_body =open("how_to_build_high_performance_teams.html")
+                subject ="Rcs Data Back up" 
+                html_body =open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
@@ -34,7 +34,6 @@ def mass_mailing_script():
                 server.sendmail(email_user, email_send, text)
                 
                 server.quit()
-                print("emails were sent")
         except:
             print(error.message)
 
