@@ -3,14 +3,20 @@ import smtplib
 import  csv 
 from email.mime.text import MIMEText
 from apscheduler.schedulers.blocking import BlockingScheduler
+import time
 
+sched = BlockingScheduler()
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=13, minute=15)
 def mass_mailing_script():
     email_user = "office@rcsconsult.net"
-    password = "office**1234"
+    password = "**1234office"
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    server.ehlo()
     with open('cleaned_emails.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         
         try:
+            count = 0
             for line in reader:
                 if(len(line) < 1):
                     continue
@@ -23,11 +29,18 @@ def mass_mailing_script():
                 msg['Subject'] = subject
                 
                 text = msg.as_string()
-                server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
                 server.login(email_user, password)
                 server.sendmail(email_user, email_send, text)
+                count +=1
+                print(str(count) + ". Sent Email to: " + email_send)
                 
-                server.quit()
+                if(count%2 == 0):
+                    print("Server Cooldown for 05 seconds")
+                    time.sleep(5)
+                    server.ehlo()
+                    server.login(email_user, password)
+                    
         except:
-            print(error.message)
+            print("error") 
+sched.start()
 
