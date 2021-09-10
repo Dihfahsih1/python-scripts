@@ -6,7 +6,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=13, minute=17)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=13, minute=23)
 def mass_mailing_script():
     email_user = "office@rcsconsult.net"
     password = "**1234office"
