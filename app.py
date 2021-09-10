@@ -6,11 +6,12 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=13, minute=23)
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=13, minute=45)
 def mass_mailing_script():
-    email_user = "office@rcsconsult.net"
-    password = "**1234office"
-    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    email_user = "sales@begos.biz"
+    password = "begos2021"
+    server = smtplib.SMTP_SSL("smtp.zoho.in", 465)
+    
     server.ehlo()
     with open('cleaned_emails.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -34,7 +35,7 @@ def mass_mailing_script():
                 count +=1
                 print(str(count) + ". Sent Email to: " + email_send)
                 
-                if(count%20 == 0):
+                if(count%100 == 0):
                     print("Server Cooldown for 05 seconds")
                     time.sleep(20)
                     server.ehlo()
