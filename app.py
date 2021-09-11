@@ -5,13 +5,11 @@ from email.mime.text import MIMEText
 from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 
-sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=13, minute=45)
+
 def mass_mailing_script():
     email_user = "sales@begos.biz"
     password = "begos2021"
-    server = smtplib.SMTP_SSL("smtp.zoho.in", 465)
-    
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.ehlo()
     with open('cleaned_emails.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -23,19 +21,17 @@ def mass_mailing_script():
                     continue
                 email_send = line[0]
                 subject ="Training Webinar" 
-                html_body =open("how_to_build_high_performance_teams.html")
+                html_body = open("how_to_build_high_performance_teams.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
                 msg['Subject'] = subject
-                
                 text = msg.as_string()
                 server.login(email_user, password)
                 server.sendmail(email_user, email_send, text)
                 count +=1
                 print(str(count) + ". Sent Email to: " + email_send)
-                
-                if(count%100 == 0):
+                if(count%20 == 0):
                     print("Server Cooldown for 05 seconds")
                     time.sleep(20)
                     server.ehlo()
@@ -43,5 +39,5 @@ def mass_mailing_script():
                     
         except:
             print("error") 
-sched.start()
+mass_mailing_script()
 
