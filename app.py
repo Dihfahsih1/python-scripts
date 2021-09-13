@@ -5,13 +5,14 @@ from email.mime.text import MIMEText
 from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 
-
+sched = BlockingScheduler()
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour=16, minute=50)
 def mass_mailing_script():
-    email_user = "sales@begos.biz"
-    password = "begos2021"
+    email_user = "ict@rcsconsult.net"
+    password = "pythonista"
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.ehlo()
-    with open('cleaned_emails.csv', 'r') as csvfile:
+    with open('receipients.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         
         try:
@@ -20,8 +21,8 @@ def mass_mailing_script():
                 if(len(line) < 1):
                     continue
                 email_send = line[0]
-                subject ="Training Webinar" 
-                html_body = open("how_to_build_high_performance_teams.html")
+                subject ="Backing Up today's work" 
+                html_body = open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
                 msg['To'] = email_send
@@ -39,5 +40,5 @@ def mass_mailing_script():
                     
         except:
             print("error") 
-mass_mailing_script()
+sched.start()
 
