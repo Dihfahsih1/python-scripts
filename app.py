@@ -21,7 +21,7 @@ def mass_mailing_script():
                 if(len(line) < 1):
                     continue
                 email_send = line[0]
-                subject ="Backing Up today's work" 
+                subject ="Organize your backed up files in specific folders" 
                 html_body = open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
