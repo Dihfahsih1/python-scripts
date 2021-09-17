@@ -6,7 +6,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 
 sched = BlockingScheduler()
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=16, minute=50)
+@sched.scheduled_job('cron', day_of_week='fri', hour=16, minute=50)
 def mass_mailing_script():
     email_user = "ict@rcsconsult.net"
     password = "pythonista"
@@ -21,7 +21,7 @@ def mass_mailing_script():
                 if(len(line) < 1):
                     continue
                 email_send = line[0]
-                subject ="Organize your backed up files in specific folders" 
+                subject ="Don't forget to backup company data" 
                 html_body = open("text.html")
                 msg = MIMEText(html_body.read(), "html")
                 msg['From'] = email_user
