@@ -27,7 +27,6 @@ def mass_mailing_script():
                 msg['From'] = email_user
                 msg['To'] = email_send
                 msg['Subject'] = subject
-                
                 text = msg.as_string()
                 server.login(email_user, password)
                 server.sendmail(email_user, email_send, text)
