@@ -1,11 +1,12 @@
 from openpyxl import load_workbook
 
-infile = load_workbook("toexcel.xlsx")
-product_list=infile("sheet1")
+infile = load_workbook("products.xlsx")
+ 
+product_list=infile["Table 1"]
 
 products_per_supplier = {}
 
-for product_row in range(2, products_per_supplier.max_row + 1):
+for product_row in range(2, product_list.max_row + 1):
   supplier_name=product_list.cell(product_row, 4).value
   
   #calculation for products per supplier
