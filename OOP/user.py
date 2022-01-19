@@ -13,11 +13,5 @@ class User:
     
   def get_user_info(self):
     print(f"User {self.name} currently works as {self.job}. You can contact them at {self.email}")
-app_user_one=User("dihfahsih@gmail.com", "Mugoya Dihfahsih","MugoYA23?","Software Developer")
 
-app_user_one.get_user_info()
-
-app_user_one.change_job(new_job="Software Engineer")
-
-app_user_one.get_user_info()
       
